@@ -18,16 +18,26 @@ long	ft_atoi(const char *str)
 		j *= -1;
 		i++;
 	}
-	if(!(str[i] >= '0' && str[i] <= '9'))
+	if (!(str[i] >= '0' && str[i] <= '9'))
 		error();
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i] - 48);
-		if (nb > 2147483647|| nb < -2147483648)
-			return (2147483648);
+		if (nb > 2147483647 || nb < -2147483648)
+			error();
 		i++;
 	}
 	return (nb * j);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
@@ -47,7 +57,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new)
 	}
 }
 
-t_list	*ft_lstnew(void *content)
+t_list	*ft_lstnew(int content)
 {
 	t_list	*new_node;
 
@@ -59,43 +69,19 @@ t_list	*ft_lstnew(void *content)
 	return (new_node);
 }
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+int	ft_lstsize(t_list *lst)
 {
-	if (!lst || !new)
-		return ;
-	new->next = *lst;
-	*lst = new;
-}
+	t_list	*itr;
+	int		i;
 
-void free_stack(t_list **stack)
-{
-    t_list *lst;
-    t_list *s;
-
-    lst = *stack;
-    while(lst)
-    {
-       s = lst->next;
-       free(lst);
-       lst = s;
-    }
-}
-int	ft_isdigit(int c)
-{
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
-}
-
-int	ft_isalpha(int c)
-{
-	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
-		return (1);
-	return (0);
-}
-
-void error(void)
-{
-    write(1,"Error\n",6);
-    exit(1);
+	if (!lst)
+		return (0);
+	itr = lst;
+	i = 0;
+	while (itr)
+	{
+		i++;
+		itr = itr->next;
+	}
+	return (i);
 }
