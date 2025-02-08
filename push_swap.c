@@ -163,11 +163,12 @@ int *bubble_sort(t_list *head)
     while(i > j)
     {
         p[j] = tmp->content;
+		//printf("%d ",p[j]);
         j++;
         tmp = tmp->next;
     }
     i = 0;
-    while(i < j)
+    while(i < j - 1)
     {
         if(p[i] > p[i + 1])
         {
@@ -182,13 +183,96 @@ int *bubble_sort(t_list *head)
     return (p);
 }
 
+int    get_range(int size)
+{
+    if (size <= 16)
+        return (size / 2);
+    else if (size <= 100)
+        return (size / 5);
+    else if (size <= 500)
+        return (size / 12);
+    else
+        return (35);
+}
+void	three(t_list **stack_a, t_list **stack_b, int *p, int size, int range)
+{
+	t_list *temp;
+	int a;
+	int start;
+
+	a = 0;
+	start =0;
+	temp = *stack_a;
+	while(start < size)
+	{
+		if()
+
+	}
+}
+
+void mohim(t_list **stack_a, t_list **stack_b, int *p)
+{
+	t_list *tem_a;
+	int size;
+	int range;
+	int start;
+	//int end;
+	int j;
+
+	tem_a = *stack_a;
+	size = ft_lstsize(*stack_a);
+	range = get_range(size);
+	start = 0;
+	//end = range + start;
+	while (start < size)
+    {
+        // if(end != size)
+        //     end = range + start;
+        j = start ;
+        //printf("((%d))\n",p[start]);
+        while (j < range)
+        {
+             //printf("%d",p[j]);
+            // printf("(%d) \n",tem_a->content);
+            if(tem_a->content == p[j])
+            {
+                pa(stack_a,stack_b);
+                // if(tem_b->next)
+                // {
+                //     c = tem_b->next;
+                //     if(tem_b->content > c->content)
+                //         rrb(stack_b);
+                // }
+            }
+            j++;
+        }
+		tem_a = *stack_a;
+        start++;
+        if(range < size)
+            range++;
+    }
+    // printf("%d ",range);
+    // printf("%d ",size);
+    // printf("%d \n",j);
+}
+
 int	main(int ac, char **av)
 {
 	int i;
-	t_list *head;
+	t_list *stack_a;
+	t_list *stack_b;
+	t_list *tmp_a;
+	t_list *tmp_b;
     int *p;
 
-	head = NULL;
+	int size;
+	int range;
+
+
+
+	stack_a = NULL;
+	stack_b = NULL;
+	//printf("%d",stack_b->content);
 	i = 1;
 	if (ac > 1)
 	{
@@ -202,15 +286,28 @@ int	main(int ac, char **av)
 			i++;
 		}
 		i = 0;
-		new_stack(av, &head);
-		repetition(&head);
-        p = bubble_sort(head);
-        while(i < 6)
+		new_stack(av, &stack_a);
+		repetition(&stack_a);
+        p = bubble_sort(stack_a);
+		size = ft_lstsize(stack_a);
+		range = get_range(size);
+		mohim(&stack_a,&stack_b,p);
+		// t_list *a = ft_lstnew(100);
+		// ft_lstadd_back(&stack_b,a);
+		tmp_a = stack_a;
+		tmp_b = stack_b;
+        while(tmp_a)
         {
-            printf("%d ",p[i]);
-            i++;
-        } 
-        free(p);
+            printf("%d ",tmp_a->content);
+			tmp_a = tmp_a->next;
+        }
+		printf("\n");
+		while(tmp_b)
+        {
+            printf("%d ",tmp_b->content);
+			tmp_b = tmp_b->next;
+        }
+
 	}
 
 	else
@@ -218,4 +315,5 @@ int	main(int ac, char **av)
 		write(1, "Errrtrror\n", 6);
 		return (1);
 	}
+	free(p);
 }
