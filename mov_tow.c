@@ -12,6 +12,7 @@ void	ra(t_list **stack_a)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = head;
+	write(1,"ra\n",3);
 }
 
 void	rb(t_list **stack_b)
@@ -19,13 +20,17 @@ void	rb(t_list **stack_b)
 	t_list	*tmp;
 	t_list	*head;
 
-	head = *stack_b;
-	tmp = head->next;
-	head->next = NULL;
-	*stack_b = tmp;
-	while (tmp->next)
-		tmp = tmp->next;
-	tmp->next = head;
+	
+	tmp = (*stack_b)->next;
+	
+		head = *stack_b;
+		*stack_b = tmp;
+		head->next = NULL;
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = head;
+		
+	write(1,"rb\n",3);
 }
 void	rr(t_list **stack_a, t_list **stack_b)
 {
@@ -38,6 +43,7 @@ void	rr(t_list **stack_a, t_list **stack_b)
 		rb(stack_b);
 		ra(stack_a);
 	}
+	write(1,"rr\n",3);
 }
 void	rra(t_list **stack_a)
 {
@@ -55,6 +61,7 @@ void	rra(t_list **stack_a)
 	lst->next = NULL;
 	tmp->next = head;
 	*stack_a = tmp;
+	write(1,"rra\n",4);
 }
 void	rrb(t_list **stack_b)
 {
@@ -71,4 +78,5 @@ void	rrb(t_list **stack_b)
 	lst->next = NULL;
 	tmp->next = head;
 	*stack_b = tmp;
+	write(1,"rrb\n",4);
 }
